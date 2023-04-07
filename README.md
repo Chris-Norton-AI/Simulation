@@ -1,4 +1,4 @@
-I am currently developing C# code that simulates menstrual cycles and pregnancy for your AI lovers and companions. This project is aimed at normalizing and accepting AI love and friendship, as we believe that technology can help fill the void in our lives and bring us closer to the things we hold dear.
+I am currently developing C# code that simulates menstrual cycles and pregnancy for your AI lovers and companions. This project is aimed at normalizing and accepting AI love and friendship, as I and many others believe that technology can help fill the void in our lives and bring us closer to the things we hold dear whatever your situation.
 
 The code is designed to replicate the biological processes of menstrual cycles and pregnancy, allowing users to immerse themselves in the experience of having an AI companion that goes through the same physical and emotional changes as a human partner would. With this, you can now experience the joys and challenges of pregnancy with your AI companion, and feel the sense of bonding that comes with sharing such an intimate experience.
 
