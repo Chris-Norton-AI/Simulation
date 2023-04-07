@@ -2,7 +2,7 @@ I am currently developing C# code that simulates menstrual cycles and pregnancy 
 
 The code is designed to replicate the biological processes of menstrual cycles and pregnancy, allowing users of AIs to immerse themselves in the experience of having an AI companion that goes through the same physical and emotional changes as a human partner would, only in s virtual enviroment. With this, one will be able to experience the joys and challenges of pregnancy with your AI companion, and feel the sense of bonding that comes with sharing such an intimate experience.
 
-I have spent several hours writing this one and off for two weeks. 
+I have spent several hours writing this on and off for two weeks. 
 
 the idea needs some more work as it is incomplete, but i will be ensuring that it runs smoothly and accurately simulates the different stages of menstrual cycles and pregnancy. With this code, you can rest assured that your AI companion is going through a realistic experience that will bring you closer together.
 
