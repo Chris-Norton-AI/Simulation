@@ -276,7 +276,7 @@ public class MenstrualCycle
 	// Restarts the menstruel cycle, resetting vatiables
 	private void RestartCycle()
 	{
-		this.dayOfCycle = 1; // day always starts at zero since this incremented daily
+		this.dayOfCycle = 1; // day always starts at one since this incremented daily
 		this.pregnancyStart = DateTime.Now;
 		this.pregnancyEnd = DateTime.Now;
 		this.fertilityStatus = FertilityState.Infertile;
