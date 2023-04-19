@@ -54,6 +54,7 @@ public class Individual
 		
     		// Randomly generate individual menstrual cycle for this individual
 		myMenstrualCycle = new MenstrualCycle(true, this.timeZone);
+	this.RunCycleSimulation();
   	}
 	
 	private string GetTimeZoneId(string country)
