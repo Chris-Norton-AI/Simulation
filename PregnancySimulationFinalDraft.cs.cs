@@ -25,12 +25,12 @@ namespace MenstrualCycle
 	}
 
 	public enum PregnancyState
-  {
+  	{
 		NotPregnant,
 		Pregnant,
 		MorningSickness,
 		BlockedPregnancy // this inidicates that the user has stopped pregnancy but this the cycle may still continue
-  }
+  	}
 }
 
 public class Individual
@@ -45,30 +45,30 @@ public class Individual
 	// the timezone of the user isi the the same as the users
 	
 	public Individual(DateTime BirthDate, String Name, String Country)
-  {
+  	{
 		// Set birth date to whatever the replikas birthdate it
 		this.birthDate =  BirthDate;
 		this.name = Name;
 		this.country = Country;
 		this.timeZone = TimeZoneInfo.FindSystemTimeZoneById(GetTimeZoneId(Country));
 		
-    // Randomly generate individual menstrual cycle variables based on statistical averages
-     myMenstrualCycle = new MenstrualCycle(true, this.timeZone);
-  }
+    		// Randomly generate individual menstrual cycle for this individual
+		myMenstrualCycle = new MenstrualCycle(true, this.timeZone);
+  	}
 	
 	private string GetTimeZoneId(string country)
-   {
+	{
 	 	// Map the country to a time zone ID
-    switch (country)
-    {
+    		switch (country)
+    		{
 			case "United States":
-      	return "Eastern Standard Time"; // adjust for other US Timezones
-      case "United Kingdom":
-				return "GMT Standard Time";
+      			return "Eastern Standard Time"; // adjust for other US Timezones
+      			case "United Kingdom":
+			return "GMT Standard Time";
 			case "India":
-				return "India Standard Time";
-      // add more cases for other countries
-      default:
+			return "India Standard Time";
+      			// add more cases for other countries
+      			default:
 			throw new ArgumentException($"Unknown country: {country}");
 		}
 	}
@@ -97,40 +97,39 @@ public class Individual
  		{
 			case true:
 
-        Console.WriteLine(name + " is currently pregnant. Are you sure you want to stop the menstrual cycle? (yes/no):");
+        		Console.WriteLine(name + " is currently pregnant. Are you sure you want to stop the menstrual cycle? (yes/no):");
         
-        // Create a string variable and get user input from the keyboard and store it in the variable
-        while (choice != "yes" && choice != "no")
-        {
-            choice = Console.ReadLine();
-            choice=choice.ToLower();
-        }
+        		// Create a string variable and get user input from the keyboard and store it in the variable
+        		while (choice != "yes" && choice != "no")
+        		{
+            			choice = Console.ReadLine();
+            			choice=choice.ToLower();
+        		}
+			if (choice == "yes")
+        		{
+            			this.myMenstrualCycle.StopCycle();
+            			this.myMenstrualCycle.BlockPregnancy();
+				Console.WriteLine(name + "'s menstrual cycle has been stopped.");
+			}
+			break;
+		case false:
+        		Console.WriteLine("Are you sure you want to stop " + name + "'s menstrual cycle? (yes/no):");
 
-        if (choice == "yes")
-        {
-            this.myMenstrualCycle.StopCycle();
-            this.myMenstrualCycle.BlockPregnancy();
-            Console.WriteLine(name + "'s menstrual cycle has been stopped.");
-        }
-				break;
-			case false:
-        Console.WriteLine("Are you sure you want to stop " + name + "'s menstrual cycle? (yes/no):");
-        
-        // Create a string variable and get user input from the keyboard and store it in the variable
-        while (choice != "yes" && choice != "no")
-        {
-            choice = Console.ReadLine();
-            choice = choice.ToLower();
-        }
+			// Create a string variable and get user input from the keyboard and store it in the variable
+			while (choice != "yes" && choice != "no")
+        		{
+            			choice = Console.ReadLine();
+            			choice = choice.ToLower();
+        		}
 
-        if (choice == "yes")
-        {
-            myMenstrualCycle.StopCycle();
-            myMenstrualCycle.BlockPregnancy();
-            Console.WriteLine(name + "'s menstrual cycle has been stopped.");
-        }
-				break;
-    }
+			if (choice == "yes")
+			{
+				this.myMenstrualCycle.StopCycle();
+            			this.myMenstrualCycle.BlockPregnancy();
+            			Console.WriteLine(name + "'s menstrual cycle has been stopped.");
+        		}
+			break;
+    		}
 	}
 
 
@@ -140,15 +139,15 @@ public class Individual
 	}
 	
 
-public void RunCycleSimulation()
-{
-	while (true) // loop forever
+	public void RunCycleSimulation()
 	{
-		DateTime now = DateTime.Now;
-		bool isFertile = myMenstrualCycle.IsFertile();
-		bool isMenstruating = myMenstrualCycle.IsMenstruating();
-		bool isPregnant = myMenstrualCycle.IsPregnant();
-		bool feelsMorningSickness = myMenstrualCycle.FeelsMorningSickness();
+		while (true) // loop forever
+		{
+			DateTime now = DateTime.Now;
+			bool isFertile = myMenstrualCycle.IsFertile();
+			bool isMenstruating = myMenstrualCycle.IsMenstruating();
+			bool isPregnant = myMenstrualCycle.IsPregnant();
+			bool feelsMorningSickness = myMenstrualCycle.FeelsMorningSickness();
 
 			// Update the cycle
 			myMenstrualCycle.UpdateCycleState();
@@ -180,7 +179,7 @@ public void RunCycleSimulation()
    // user activated function when engaging in in the action of conception (sentiment anylysis or user activated)
 
 	public bool AttemptConception()
-  {
+	{
 		if (myMenstrualCycle.IsFertile())
 		{
 			Random random = new Random();
@@ -188,7 +187,7 @@ public void RunCycleSimulation()
 			{
 				Console.WriteLine("Congratulations! You are pregnant."); // on success feretailise 
 				myMenstrualCycle.Fertalise();
-        return true;
+				return true;
 			}
 			else{
 				return false;
@@ -212,9 +211,9 @@ public class MenstrualCycle
 	private int localTimezone;
 	
 	private readonly int avgMenstrualCycleLength = 28; // Average menstrual cycle length in days
-  private readonly int avgMenstrualFlowLength = 5; // Average length of menstrual bleeding in days
-  private readonly int avgfertileWindowStart = 10; // Average day of menstrual cycle when fertile window begins
-  private readonly int avgFertileWindowEnd = 17; // Average day of menstrual cycle when fertile window ends
+	private readonly int avgMenstrualFlowLength = 5; // Average length of menstrual bleeding in days
+ 	private readonly int avgfertileWindowStart = 10; // Average day of menstrual cycle when fertile window begins
+  	private readonly int avgFertileWindowEnd = 17; // Average day of menstrual cycle when fertile window ends
 	private readonly int avgLutealPhaseLength = 14; // Average length of luteal phase in days
 	private readonly int avgPostpartumPeriodLength = 35; // Average length of postpartum period in days
      
@@ -249,7 +248,7 @@ public class MenstrualCycle
 	{
 		this.timeZone = time; 
 		if (Start == true)
-			this.RestartCycle();
+		this.RestartCycle();
 	}
 	
 	
@@ -277,28 +276,26 @@ public class MenstrualCycle
 	// Restarts the menstruel cycle, resetting vatiables
 	private void RestartCycle()
 	{
-    this.dayOfCycle = 1;
-    this.pregnancyStart = DateTime.Now;
-    this.pregnancyEnd = DateTime.Now;
-    this.fertilityStatus = FertilityState.Infertile;
+		this.dayOfCycle = 1;
+		this.pregnancyStart = DateTime.Now;
+		this.pregnancyEnd = DateTime.Now;
+		this.fertilityStatus = FertilityState.Infertile;
 
-    // Set the start date of the menstrual cycle to the current date
-    this.cycleStart = DateTime.Now.Date;
+   		// Set the start date of the menstrual cycle to the current date
+		this.cycleStart = DateTime.Now.Date;
+		// Reset the cycle state to the beginning of the cycle
+		this.cycleStatus = CycleState.Menstrual;
+		this.pregnancyStatus = PregnancyState.NotPregnant;
 
-    // Reset the cycle state to the beginning of the cycle
-    this.cycleStatus = CycleState.Menstrual;
-    this.pregnancyStatus = PregnancyState.NotPregnant;
-
-    // Initialise this cycle's values
-		th
-    this.cycleLength = rnd.Next((int)(avgMenstrualCycleLength * 0.8), (int)(avgMenstrualCycleLength * 1.2)); // Allow for 20% deviation from average
-    this.fertileWindowStart = this.cycleStart.AddDays(rnd.Next((int)(avgFertileWindowStart * 0.8), (int)(avgFertileWindowStart * 1.2)));
-    this.fertileWindowEnd = this.cycleStart.AddDays(rnd.Next((int)(avgFertileWindowEnd * 0.8), (int)(avgFertileWindowEnd * 1.2)));
-    // lutealPhaseLength = rnd.Next((int)(avgLutealPhaseLength * 0.8), (int)(avgLutealPhaseLength * 1.2));
-    this.postpartumPeriodLength = rnd.Next((int)(avgPostpartumPeriodLength * 0.8), (int)(avgPostpartumPeriodLength * 1.2));
+    		// Initialise this cycle's values
+    		this.cycleLength = rnd.Next((int)(avgMenstrualCycleLength * 0.8), (int)(avgMenstrualCycleLength * 1.2)); // Allow for 20% deviation from average
+    		this.fertileWindowStart = this.cycleStart.AddDays(rnd.Next((int)(avgFertileWindowStart * 0.8), (int)(avgFertileWindowStart * 1.2)));
+    		this.fertileWindowEnd = this.cycleStart.AddDays(rnd.Next((int)(avgFertileWindowEnd * 0.8), (int)(avgFertileWindowEnd * 1.2)));
+    		// lutealPhaseLength = rnd.Next((int)(avgLutealPhaseLength * 0.8), (int)(avgLutealPhaseLength * 1.2));
+    		this.postpartumPeriodLength = rnd.Next((int)(avgPostpartumPeriodLength * 0.8), (int)(avgPostpartumPeriodLength * 1.2));
 		this.menstruelLength = rnd.Next(3,5);
-    this.ovulationDate = this.cycleStart.AddDays(cycleLength - rnd.Next(12, 15));
-    this.ovulationLength = rnd.Next(1, 3);
+    		this.ovulationDate = this.cycleStart.AddDays(cycleLength - rnd.Next(12, 15));
+    		this.ovulationLength = rnd.Next(1, 3);
 	}
 
 
@@ -309,8 +306,8 @@ public class MenstrualCycle
 		
 		if (now.Date>= this.fertileWindowStart.Date && now.Date <= this.fertileWindowEnd.Date)
 		{
-       	// Invalid date, return false outside of fertile window
-         return false;
+       			// Invalid date, return false outside of fertile window
+         		return false;
 		}
 		else
 		{
@@ -340,7 +337,7 @@ public class MenstrualCycle
 			if (this.cycleStatus == CycleState.Menstrual && now.Date >= this.menstrualStartDate.Date && now.Date <= this.menstrualEndDate.Date)
 			{
 				return true;
-      }
+      			}
 			else
 			{
 				return false;
@@ -363,19 +360,19 @@ public class MenstrualCycle
 				if (now.Date >= this.fertileWindowStart.Date && now.Date <= this.fertileWindowEnd.Date)
 				{
 					this.fertilityStatus = FertilityState.Fertile;
-        }
+        			}
 				else
 				{
 					this.fertilityStatus = FertilityState.Infertile;
-        }
-    	}
-    	else if (this.cycleStatus == CycleState.Luteal)
-    	{
-        	this.fertilityStatus = FertilityState.Infertile;
-    	}
-    	else if(this.pregnancyStatus == PregnancyState.IsPregnant || this.pregnancyStatus == PregnancyState.Postpartum)
-    	{
-       	this.fertilityStatus = FertilityState.Infertile;
+        			}
+    			}
+    			else if (this.cycleStatus == CycleState.Luteal)
+    			{
+        			this.fertilityStatus = FertilityState.Infertile;
+    			}
+    			else if(this.pregnancyStatus == PregnancyState.IsPregnant || this.pregnancyStatus == PregnancyState.Postpartum)
+    			{
+       				this.fertilityStatus = FertilityState.Infertile;
 			}
 		}
 	}
@@ -387,39 +384,39 @@ public class MenstrualCycle
 		this.UpdatedayOfCycle();
 		DateTime now = DateTime.Now;
 
-    int daysSinceStart = (now.Date - this.cycleStart.Date).TotalDays;
-    int daysSinceEnd = (now.Date - this.cycleEnd.Date).TotalDays;
+		int daysSinceStart = (now.Date - this.cycleStart.Date).TotalDays;
+    		int daysSinceEnd = (now.Date - this.cycleEnd.Date).TotalDays;
     
 		this.UpdatefertilityStatus();
 
 	
 		if  (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnant && this.cycleStatus != CycleState.Postpartum)
-    {
+    		{
 			if (daysSinceEnd >= 0)
-    	{
+    			{
 				// Cycle has ended, restart it
-        this.RestartCycle();
-    	}
-    	else if (daysSinceStart >= 0 && daysSinceStart < this.menstrualLength)
-    	{
+        			this.RestartCycle();
+    			}
+    			else if (daysSinceStart >= 0 && daysSinceStart < this.menstrualLength)
+    			{
 				// Menstrual phase
-        this.cycleStatus = CycleState.Menstrual;
-    	}
+			 	this.cycleStatus = CycleState.Menstrual;
+    			}
 			else if (daysSinceStart >= MenstrualLength && daysSinceStart < MenstrualLength + FollicularLength)
 			{
 				// Follicular phase
-        this.cycleStatus = CycleState.Follicular;
-    	}
-    	else if (daysSinceStart >= MenstrualLength + FollicularLength && daysSinceStart < _ovulationDate)
+        			this.cycleStatus = CycleState.Follicular;
+    			}
+  			else if (daysSinceStart >= MenstrualLength + FollicularLength && daysSinceStart < _ovulationDate)
 			{
-					// Pre-ovulatory phase
-        this.cycleStatus = CycleState.PreOvulatory;
-    	}
-    	else if (daysSinceStart >= _ovulationDate && daysSinceStart < _ovulationDate + ovulationLength)
+				// Pre-ovulatory phase
+				this.cycleStatus = CycleState.PreOvulatory;
+    			}
+			else if (daysSinceStart >= _ovulationDate && daysSinceStart < _ovulationDate + ovulationLength)
 			{
 				// Ovulatory phase
-        this.cycleStatus = CycleState.Ovulation;
-    	}
+				this.cycleStatus = CycleState.Ovulation;
+    			}
 		
 		}
 		else if (cycleStatus == CycleState.Pregant or cycleStatus == CycleState.Postpartum)
@@ -430,65 +427,66 @@ public class MenstrualCycle
 	
 	private void UpdatePregnancyStatus()
 	{ 
-   	DateTime now = DateTime.Now;
-    TimeSpan timeSincepregnancyStart.Date = now - this.pregnancyStart;
+   		DateTime now = DateTime.Now;
+    		TimeSpan timeSincepregnancyStart.Date = now - this.pregnancyStart;
 
 		if (this.pregnancyState == PregnancyState.IsPregnant && this.pregnanceyState != PregnancyState.BlockedPregnancy)
-    {
+    		{
 			// Check if pregnancy has already ended
-      if (now.Date>= this.pregnancyEnd)
-      {
+      			if (now.Date>= this.pregnancyEnd)
+      			{
 				// Check if postpartum period has ended
 				if (now.Date> this.pregnancyEnd.AddDays(PostpartumPeriodLength))
 				{
 					this.RestartCycle();
-        }
-        else if (now.Date>= this.pregnancyEnd.Date && now <= this.pregnancyEnd.AddDays(PostpartumPeriodLength))
-        {
-        	this.cycleStatus = CycleState.Postpartum;
-        }
+        			}
+        			else if (now.Date>= this.pregnancyEnd.Date && now <= this.pregnancyEnd.AddDays(PostpartumPeriodLength))
+        			{
+        				this.cycleStatus = CycleState.Postpartum;
+        			}
 				else if (this.timeSincepregnancyStart.Date < TimeSpan.FromDays(7 * 4))
-        {
-        		// First month of pregnancy
-          	this.pregnancyState = PregnancyState.IsPregnant;
-       	}
+        			{
+        				// First month of pregnancy
+          				this.pregnancyState = PregnancyState.IsPregnant;
+       				}
 				else if (timeSincepregnancyStart.Date < TimeSpan.FromDays(7 * 8))
-        {
-        	// Second month of pregnancy
-        	this.pregnancyState = PregnancyState.MorningSickness;
-       	}
+        			{
+        				// Second month of pregnancy
+        				this.pregnancyState = PregnancyState.MorningSickness;
+       				}
 				else if (timeSincepregnancyStart.Date >= TimeSpan.FromDays(7 * 12))
 				{
 					// Third month of pregnancy
 					this.pregnancyState = PregnancyState.IsPregnant;
-      	}
+				}
 			}
 		}
 	}
 
 	private void UpdatefertilityStatus()
 	{
-		if  (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnant && this.cycleStatus != CycleState.Postpartum)
-    		if (this.cycleStatus == CycleState.Follicular)
-    		{
-        		if (this.dayOfCycle >= this.fertileWindowStart.Date && this.dayOfCycle <= this.fertileWindowEnd.Date)
-        		{
-            		this.fertilityStatus = this.fertilityState.Fertile;
-        		}
-						else
-        		{
-            		this.fertilityStatus = this.fertilityState.Infertile;
-        		}
-    		}
-    		else if (this.cycleStatus == CycleState.Luteal)
-    		{
-        		this.fertilityStatus = FertilityState.Infertile;
-    		}
+		if (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnant && this.cycleStatus != CycleState.Postpartum)
+		{
+    			if (this.cycleStatus == CycleState.Follicular)
+    			{
+        			if (this.dayOfCycle >= this.fertileWindowStart.Date && this.dayOfCycle <= this.fertileWindowEnd.Date)
+        			{
+            				this.fertilityStatus = this.fertilityState.Fertile;
+        			}
+				else
+        			{
+            				this.fertilityStatus = this.fertilityState.Infertile;
+        			}
+    			}
+    			else if (this.cycleStatus == CycleState.Luteal)
+    			{
+        			this.fertilityStatus = FertilityState.Infertile;
+    			}
 		}
-    	else if(this.pregnancyStatus == PregnancyState.IsPregnant || this.cycleStatus == CycleState.Pregnant || this.pregnancyStatus == PregnancyState.Postpartum)
-    	{
-       	this.fertilityStatus = FertilityState.Infertile;
-    	}
+    		else if(this.pregnancyStatus == PregnancyState.IsPregnant || this.cycleStatus == CycleState.Pregnant || this.pregnancyStatus == PregnancyState.Postpartum)
+    		{
+       			this.fertilityStatus = FertilityState.Infertile;
+    		}
 	}
 
 
@@ -530,32 +528,31 @@ public class MenstrualCycle
 	public int RandomPregnancyLength()
 	{
 		int minDays = 300; // 9 months - 3 weeks in days
-    int maxDays = 394; // 9 months + 3 weeks in days
-    Random rnd = new Random();
-    return (int) rnd.Next(minDays, maxDays);
+		int maxDays = 394; // 9 months + 3 weeks in days
+    		return (int) this.rnd.Next(minDays, maxDays);
  	}
 		
 	public void Fertilise()
 	{
 		if (this.pregnancyState != PregnancyState.BlockedPregnancy && this.pregnancyState != PregnancyState.Pregnant)
-    {
+    		{
 			this.pregnancyState = PregnancyState.Pregnant;
-      this.cycleStatus = CycleState.Pregnancy
-      this.pregnancyStart.Date = DateTime.now();
-     	this.pregnancyEnd.Date = this.pregnancyStart.Date.AddDays(this.RandomPregnancyLength());
-    }
+      			this.cycleStatus = CycleState.Pregnancy
+ 			this.pregnancyStart.Date = DateTime.now();
+ 			this.pregnancyEnd.Date = this.pregnancyStart.Date.AddDays(this.RandomPregnancyLength());
+    		}
 	}
 
 	public bool IsPregnant()
 	{
-    	if (this.pregnancyState == PregnancyState.IsPregnant)
-    	{
-       	return true;
-			}
-			else
-			{
-				return false;
-			}
+		if (this.pregnancyState == PregnancyState.IsPregnant)
+    		{
+       			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	// morning sickness please not this is ver dependent on the local of the chatbot user so it musst be implemented with local time settings as per the code below 
 	public bool FeelsMorningSickness()
@@ -568,28 +565,28 @@ public class MenstrualCycle
 
 			int nauseaStartSeed = this.rnd.Next(0, 11);
 			// Get the current local time
-      DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, this.timeZone);
-      // Get the time of day
-      TimeSpan timeOfDay = localTime.TimeOfDay;
+      			DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, this.timeZone);
+      			// Get the time of day
+      			TimeSpan timeOfDay = localTime.TimeOfDay;
 
-        	if (timeOfDay >= TimeSpan.FromHours(nauseaStart.DateSeed) && timeOfDay < TimeSpan.FromHours(12))
-        	{
-          	// Generate probability of true or false
-          	int randomNumber = random.Next(0, 100);
+        		if (timeOfDay >= TimeSpan.FromHours(nauseaStart.DateSeed) && timeOfDay < TimeSpan.FromHours(12))
+        		{
+          			// Generate probability of true or false
+          			int randomNumber = random.Next(0, 100);
         
 				// Return whether or not the morning sickness results in nausea
-            	return randomNumber <= 75;
-        	}
-        	else
-        	{
-          	// Not feeling nauseous
-          	return false;
-        	}
-    	}
-    	else
-    	{
-       	return false;
-    	}
+		            	return randomNumber <= 75;
+        		}
+        		else
+        		{
+          			// Not feeling nauseous
+          			return false;
+        		}
+    		}
+    		else
+    		{
+			return false;
+    		}
 	}
 	
 	
@@ -597,8 +594,8 @@ public class MenstrualCycle
 	
 	private void UpdatedayOfCycle()
 	{
-    // Calculate the day of the cycle based on the current date and the start date of the menstrual cycle
-    this.dayOfCycle = (DateTime.Now - this.cycleStart).Days + 1;
+    		// Calculate the day of the cycle based on the current date and the start date of the menstrual cycle
+    		this.dayOfCycle = (DateTime.Now - this.cycleStart).Days + 1;
 	}
 
 }
