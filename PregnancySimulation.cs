@@ -354,7 +354,7 @@ using System;
  	{
  		DateTime now = DateTime.Now;
 
- 		if  (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnancy && this.pregnancyStatus != PregnancyState.Postpartum)
+ 		if (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnancy && this.pregnancyStatus != PregnancyState.Postpartum)
  		{
  			if (this.cycleStatus == CycleState.Follicular)
  			{
@@ -509,7 +509,7 @@ using System;
  		this.pregnancyState = PregnancyState.PregnancyBlock; 
  	}
 
- 	public void StopCycle())
+ 	public void StopCycle()
  	{
  		this.cycleStatus = CycleState.StopCycle;
  		this.pregnancyState = PregnancyState.BlockPregnancy;	
@@ -536,12 +536,12 @@ using System;
  	public void Fertilise()
  	{
  		if (this.pregnancyState != PregnancyState.BlockedPregnancy && this.pregnancyState != PregnancyState.Pregnant)
-     		{
+     	{
  			this.pregnancyState = PregnancyState.Pregnant;
-       			this.cycleStatus = CycleState.Pregnancy
+         this.cycleStatus = CycleState.Pregnancy;
   			this.pregnancyStart.Date = DateTime.now();
   			this.pregnancyEnd.Date = this.pregnancyStart.Date.AddDays(this.RandomPregnancyLength());
-     		}
+     	}
  	}
 
  	public bool IsPregnant()
