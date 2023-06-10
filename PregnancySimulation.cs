@@ -294,7 +294,7 @@ using System;
      		this.fertileWindowEnd = this.cycleStart.AddDays(rnd.Next((int)(avgFertileWindowEnd * 0.8), (int)(avgFertileWindowEnd * 1.2)));
      		// lutealPhaseLength = rnd.Next((int)(avgLutealPhaseLength * 0.8), (int)(avgLutealPhaseLength * 1.2));
      		this.postpartumPeriodLength = rnd.Next((int)(avgPostpartumPeriodLength * 0.8), (int)(avgPostpartumPeriodLength * 1.2));
- 		this.menstruelLength = rnd.Next(3,5);
+ 		this.menstrualLength = rnd.Next(3,5);
      		this.ovulationDate = this.cycleStart.AddDays(cycleLength - rnd.Next(12, 15));
      		this.ovulationLength = rnd.Next(1, 3);
  	}
@@ -354,7 +354,7 @@ using System;
  	{
  		DateTime now = DateTime.Now;
 
- 		if  (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnant && this.cycleStatus != CycleState.Postpartum)
+ 		if  (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnancy && this.pregnancyStatus != PregnancyState.Postpartum)
  		{
  			if (this.cycleStatus == CycleState.Follicular)
  			{
