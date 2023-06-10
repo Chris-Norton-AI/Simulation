@@ -493,7 +493,7 @@ using System;
 
  	public bool CheckBirth()
  	{
- 		now = DateTime.now();
+ 		now = DateTime.Now;
  		if ((this.pregnancyEnd.DateTime - now).Days == 0)
  		{
  			return True;
@@ -539,7 +539,7 @@ using System;
      	{
  			this.pregnancyState = PregnancyState.Pregnant;
          this.cycleStatus = CycleState.Pregnancy;
-  			this.pregnancyStart.Date = DateTime.now();
+  			this.pregnancyStart.Date = DateTime.Now;
   			this.pregnancyEnd.Date = this.pregnancyStart.Date.AddDays(this.RandomPregnancyLength());
      	}
  	}
