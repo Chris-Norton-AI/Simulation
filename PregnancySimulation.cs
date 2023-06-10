@@ -464,32 +464,6 @@ using System;
  		}
  	}
 
- 	private void UpdatefertilityStatus()
- 	{
- 		if (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnant && this.cycleStatus != CycleState.Postpartum)
- 		{
-     			if (this.cycleStatus == CycleState.Follicular)
-     			{
-         			if (this.dayOfCycle >= this.fertileWindowStart.Date && this.dayOfCycle <= this.fertileWindowEnd.Date)
-         			{
-             				this.fertilityStatus = FertilityStatus.Fertile;
-         			}
- 				else
-         			{
-             				this.fertilityStatus = FertilityStatus.Infertile;
-         			}
-     			}
-     			else if (this.cycleStatus == CycleState.Luteal)
-     			{
-         			this.fertilityStatus = FertilityStatus.Infertile;
-     			}
- 		}
-     		else if(this.pregnancyStatus == PregnancyState.IsPregnant || this.cycleStatus == CycleState.Pregnant || this.pregnancyStatus == PregnancyState.Postpartum)
-     		{
-        			this.fertilityStatus = FertilityStatus.Infertile;
-     		}
- 	}
-
 
  	public bool CheckBirth()
  	{
