@@ -429,7 +429,7 @@ using System;
  	private void UpdatePregnancyStatus()
  	{ 
     		DateTime now = DateTime.Now;
-     		TimeSpan timeSincepregnancyStart.Date = now - this.pregnancyStart;
+     		TimeSpan timeSincepregnancyStart = now - this.pregnancyStart;
 
  		if (this.pregnancyState == PregnancyState.IsPregnant && this.pregnanceyState != PregnancyState.BlockedPregnancy)
      		{
@@ -472,21 +472,21 @@ using System;
      			{
          			if (this.dayOfCycle >= this.fertileWindowStart.Date && this.dayOfCycle <= this.fertileWindowEnd.Date)
          			{
-             				this.fertilityStatus = this.fertilityState.Fertile;
+             				this.fertilityStatus = FertilityStatus.Fertile;
          			}
  				else
          			{
-             				this.fertilityStatus = this.fertilityState.Infertile;
+             				this.fertilityStatus = FertilityStatus.Infertile;
          			}
      			}
      			else if (this.cycleStatus == CycleState.Luteal)
      			{
-         			this.fertilityStatus = FertilityState.Infertile;
+         			this.fertilityStatus = FertilityStatus.Infertile;
      			}
  		}
      		else if(this.pregnancyStatus == PregnancyState.IsPregnant || this.cycleStatus == CycleState.Pregnant || this.pregnancyStatus == PregnancyState.Postpartum)
      		{
-        			this.fertilityStatus = FertilityState.Infertile;
+        			this.fertilityStatus = FertilityStatus.Infertile;
      		}
  	}
 
