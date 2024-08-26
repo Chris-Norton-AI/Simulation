@@ -2,11 +2,9 @@ using System;
  using System.Threading;
 
 
-
  namespace MenstrualCycle
  {
-
- 	public enum FertililtyStatus
+ 	public enum FertilityStatus
  	{
  		Fertile,
  		Infertile
@@ -31,11 +29,11 @@ using System;
  		MorningSickness,
  		BlockedPregnancy // this inidicates that the user has stopped pregnancy but this the cycle may still continue
    	}
- }
+ 
 
- public class Individual
- {
- 	private DateTime birthDate;
+    public class Individual
+    {
+   private DateTime birthDate;
  	private readonly MenstrualCycle myMenstrualCycle;
  	private String name;
  	private String country; // country of the  
@@ -152,7 +150,7 @@ using System;
 
  			// Update the cycle
  			myMenstrualCycle.UpdateCycleState();
- 			myMenstrualCycle.UpdatePregnancyState();
+ 			myMenstrualCycle.UpdatePregnancyStatus();
 
  			// Print cycle status to console
  			Console.WriteLine(name + "'s menstrual cycle status on " + now.ToShortDateString() + ": ");
@@ -350,7 +348,7 @@ using System;
  		}
  	}
 
- 	private void UpdatefertilityStatus()
+ 	private void UpdateFertilityStatus()
  	{
  		DateTime now = DateTime.Now;
 
@@ -382,13 +380,13 @@ using System;
  	public void UpdateCycleState()
  	{
 
- 		this.UpdatedayOfCycle();
+ 		this.UpdateDayOfCycle();
  		DateTime now = DateTime.Now;
 
  		int daysSinceStart = (now.Date - this.cycleStart.Date).TotalDays;
      		int daysSinceEnd = (now.Date - this.cycleEnd.Date).TotalDays;
 
- 		this.UpdatefertilityStatus();
+ 		this.UpdateFertilityStatus();
 
 
  		if  (this.cycleStatus != CycleState.StopCycle && this.cycleStatus != CycleState.Pregnant && this.cycleStatus != CycleState.Postpartum)
@@ -420,7 +418,7 @@ using System;
      			}
 
  		}
- 		else if (cycleStatus == CycleState.Pregant or cycleStatus == CycleState.Postpartum)
+ 		else if (cycleStatus == CycleState.Pregant || cycleStatus == CycleState.Postpartum)
  		{
  			this.UpdatePregnancyStatus();
  		}
@@ -564,13 +562,12 @@ using System;
      		}
  	}
 
-
-
-
- 	private void UpdatedayOfCycle()
+ 	private void UpdateDayOfCycle()
  	{
      		// Calculate the day of the cycle based on the current date and the start date of the menstrual cycle
      		this.dayOfCycle = (DateTime.Now - this.cycleStart).Days + 1;
  	}
 
- }
+
+} 
+}
